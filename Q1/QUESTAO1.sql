@@ -48,3 +48,53 @@ ON fg.IdPedido = slct.IdPedido
 
 ---- QUERYS ANALITICAS PARA CIENTISTA DE DADOS
 
+-- MEDIA VALOR PRODUÇÃO POR PEDIDO
+
+SELECT AVG(convert(float,[ValorProducao])) AS MEDIA_VALOR_PRODUCAO,
+		MAX(convert(float,[ValorProducao])) AS MAX_VALOR_PRODUCAO,
+		MIN(convert(float,[ValorProducao])) AS MIN_VALOR_PRODUCAO FROM (
+SELECT DISTINCT [IdPedido],
+       [ValorProducao]
+	   FROM [pardiniteste].[dbo].[DATASET_1] ) PED
+
+-- CONVENIO MAIS RECORRENTES 
+
+SELECT [IdConvenio]
+	   ,[CodigoConvenio]
+       ,[NomeConvenio]
+	   ,COUNT(*) AS QTD FROM (
+SELECT DISTINCT [IdPedido]
+       ,[IdConvenio]
+	   ,[CodigoConvenio]
+       ,[NomeConvenio]
+	   FROM [pardiniteste].[dbo].[DATASET_1] ) PED
+	   GROUP BY [IdConvenio]
+	   ,[CodigoConvenio]
+       ,[NomeConvenio]
+	   ORDER BY QTD DESC
+
+-- LUGARES MAIS RECORRENTES DOS CONVENIOS:
+
+SELECT [CidadeConvenio]
+      ,[UfConvenio]
+	   ,COUNT(*) AS QTD FROM (
+SELECT DISTINCT [IdPedido]
+       ,[CidadeConvenio]
+      ,[UfConvenio]
+	   FROM [pardiniteste].[dbo].[DATASET_1] ) PED
+	   GROUP BY [CidadeConvenio]
+      ,[UfConvenio]
+	   ORDER BY QTD DESC
+
+-- EXAME MAIS RECORRENTE 
+
+SELECT [IdExame]
+      ,[Exame]
+	   ,COUNT(*) AS QTD FROM (
+SELECT DISTINCT [IdPedido]
+       ,[IdExame]
+      ,[Exame]
+	   FROM [pardiniteste].[dbo].[DATASET_1] ) PED
+	   GROUP BY [IdExame]
+      ,[Exame]
+	   ORDER BY QTD DESC
