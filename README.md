@@ -25,3 +25,13 @@ Segue abaixo o modelo de dados da questão 1:
 ![ModeloDados](Modelo_Dados.png)
 
 O ETL está desenvolvido no script 'ETL_FATO.ipynb', porém, como que o cliente necessita que o job seja programado para rodar duas vezes ao dia, foram criados dois arquivos com a intenção de utiliza-los no Agendador de Tarefas do Windows. Os arquivos 'file.bat' e 'ETL_FATO.py' serviram para realizar o job duas vezes ao dia pelo Agendador de Tarefas. Além disso, o script 'ETL_FATO.py' utiliza dos scripts dos diretórios 'fato' e 'dimensao' para manter as tabelas atualizadas do modelo de dados.
+
+As querys sugeridas para os Analistas de Dados e Cientista de Dados estão dentro do diretório 'Q1' no arquivo 'query.sql'.
+
+## Questão 2
+
+Os datasets PRE_ANALITICO e GLOBAL_PRODUÇÃO, são utilizados constantemente no Grupo Pardini para estudos diversos. Faça o JOIN entre eles gerando um único dataset com as informações que julgar relevante. Deixar querys anexadas. 
+
+OBS: O grão das tabelas é a composição entre ID_PEDIDO, ID_UNIDADE, MNEMÔNICO e TIPO_MATERIAL.
+
+### Solução
