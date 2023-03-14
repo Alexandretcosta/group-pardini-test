@@ -1,4 +1,5 @@
 
+
 --- CREATE TABLE DATASET_1
 
 SELECT 
@@ -102,30 +103,50 @@ CREATE TABLE [dim_und_neg] (
     UNIDADENEGOCIO nvarchar(510)
 );
 
---- DIMENSAO PEDIDO
+--- DIMENSAO MATERIAL
 
-CREATE TABLE [dim_slct] (
-    IdPedido float PRIMARY KEY,
-    DataCompetencia float,
-	DataEntrada float,
-	DataPedido float,
+CREATE TABLE [dim_mat] (
+    IdMaterial float PRIMARY KEY,
+	Material nvarchar(510)
+);
+
+--- DIMENSAO SITUACAO
+
+CREATE TABLE [dim_sit] (
+    IdSituacao float PRIMARY KEY,
 	SITUACAO nvarchar(510)
 );
 
 
+--- DIMENSAO DATA 
+
+CREATE TABLE [dim_data] ( IdData integer PRIMARY KEY,
+ Data date,
+ Dia smallint,
+ Mes smallint,
+ Ano smallint,
+ Ano_Mes integer,
+ Dia_Semana smallint,
+ Nome_Dia_Semana nvarchar(10),
+ Semana_Ano smallint,
+ Semestre smallint,
+ Trimestre smallint,
+ InFeriado smallint,
+ InFds smallint )
+
 --- TABELA FATO
 
 CREATE TABLE [fato_grao] (
-	DataLaudo float,
+	IdData float,
     IdPedido float,
     IdExame float,
-	Material nvarchar(510),
+	IdMaterial float,
 	IdUnidade float,
-	IdConvenio float,
-    IdUnidadeProdutiva float,
-    IdUnidadeNegocio float,
-	SITUACAO nvarchar(510),
-    ValorProducao float
+    ValorProducao float,
+	Qtd_Exame int,
+	Qtd_Material int
 );
+
+
 
 
