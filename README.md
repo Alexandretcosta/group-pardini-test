@@ -14,4 +14,14 @@ Obs1: O menor grão da fato é Pedido + Unidade + Exame + Material e data utiliz
 
 ### Solução:
 
+Nossa solução foi criar um ETL utilizando a linguagem de programação Python e seus respectivos pacotes. Primeiro criamos o database dentro do SQL Server Management Studio. O código que gerou o database está dentro do diretório Q1 com nome 'CREATE_DATABASE.sql'. 
+
+Logo após a criação do Database, importamos as tabelas 'DATASET 1', 'PRE_ANALITICO' e 'GLOBAL_PRODUCAO' para o SSMS. 
+
+Após estudo feito na tabela 'DATASET 1', foi desenvolvido o modelo de dados dela e também a criação das tabelas Fatos e Dimensões que podem ser vistos no arquivo 'CREATE_TABLE.sql' no diretório 'Q1'.
+
+Segue abaixo o modelo de dados da questão 1:
+
 ![ModeloDados](Modelo_Dados.png)
+
+O ETL está desenvolvido no script 'ETL_FATO.ipynb', porém, como que o cliente necessita que o job seja programado para rodar duas vezes ao dia, foram criados dois arquivos com a intenção de utiliza-los no Agendador de Tarefas do Windows. Os arquivos 'file.bat' e 'ETL_FATO.py' serviram para realizar o job duas vezes ao dia pelo Agendador de Tarefas. Além disso, o script 'ETL_FATO.py' utiliza dos scripts dos diretórios 'fato' e 'dimensao' para manter as tabelas atualizadas do modelo de dados.
