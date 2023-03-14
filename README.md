@@ -1,6 +1,6 @@
 # Teste Grupo Pardini
 
-O teste técnico do Grupo Pardini apreseta um pequeno case para analisar a visão crítica do analista e verificar como o analista poderia ajudar as demandas do dia a dia. 
+O teste técnico do Grupo Pardini apresenta um pequeno case para analisar a visão crítica do analista e verificar como o analista poderia ajudar as demandas do dia a dia. 
 
 Foram apresentado dois desafios. Vamos passar por um de cada vez mostrando o problema e a possível solução.
 
