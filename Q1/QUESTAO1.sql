@@ -1,14 +1,20 @@
 ---- QUERY PARA RETORNAR O DATA ORIGINAL
 
-SELECT fg.DataLaudo, 
+SELECT fg.IdData,
+	dat.Data as DataLaudo,
+	dat.Dia_Semana,
+	dat.Nome_Dia_Semana,
+	dat.Semana_Ano,
+	dat.Semestre,
+	dat.Trimestre,
+	dat.InFeriado,
+	dat.InFds,
 	fg.IdPedido, 
-	fg.IdExame, 
-	fg.Material, 
-	fg.IdUnidade, 
-	fg.IdConvenio, 
-	fg.IdUnidadeProdutiva, 
-	fg.IdUnidadeNegocio,  
-	fg.ValorProducao, 
+	fg.IdExame,
+	exm.Exame,
+	exm.OrigemExame,
+	fg.IdMaterial, 
+	fg.IdUnidade,
 	du.NomeUnidade,
 	du.EstabelecimentoERP,
 	du.MNE_UND,
@@ -16,35 +22,17 @@ SELECT fg.DataLaudo,
 	du.UFCAPTACAO,
 	du.LATITUDE,
 	du.LONGITUDE,
-	exm.Exame,
-	exm.OrigemExame,
-	cvn.CodigoConvenio,
-	cvn.NomeConvenio, 
-	cvn.CidadeConvenio,
-	cvn.UfConvenio,
-	prd.UnidadeProdutiva,
-	neg.UNIDADENEGOCIO,
-	slct.DataCompetencia,
-	slct.DataEntrada,
-	slct.DataPedido,
-	slct.SITUACAO	   
+	fg.ValorProducao,
+	fg.Qtd_Exame,
+	fg.Qtd_Material
 FROM fato_grao fg 
 LEFT JOIN dim_und du
 ON fg.IdUnidade = du.IdUnidade
 LEFT JOIN dim_exm exm
 ON fg.IdExame = exm.IdExame
-LEFT JOIN dim_cvn cvn
-ON fg.IdConvenio = cvn.IdConvenio
-LEFT JOIN dim_und_prd as prd
-ON fg.IdUnidadeProdutiva = prd.IdUnidadeProdutiva
-LEFT JOIN dim_und_neg neg
-ON fg.IdUnidadeNegocio = neg.IdUnidadeNegocio
-LEFT JOIN dim_slct slct
-ON fg.IdPedido = slct.IdPedido
+LEFT JOIN dim_data dat
+ON fg.IdData = dat.IdData
 
--- ORDER BY IdPedido
--- OFFSET 10 ROWS
--- FETCH NEXT 10 ROWS ONLY
 
 ---- QUERYS ANALITICAS PARA CIENTISTA DE DADOS
 
@@ -59,32 +47,32 @@ SELECT DISTINCT [IdPedido],
 
 -- CONVENIO MAIS RECORRENTES 
 
-SELECT [IdConvenio]
-	   ,[CodigoConvenio]
-       ,[NomeConvenio]
-	   ,COUNT(*) AS QTD FROM (
-SELECT DISTINCT [IdPedido]
-       ,[IdConvenio]
-	   ,[CodigoConvenio]
-       ,[NomeConvenio]
-	   FROM [pardiniteste].[dbo].[DATASET_1] ) PED
-	   GROUP BY [IdConvenio]
-	   ,[CodigoConvenio]
-       ,[NomeConvenio]
-	   ORDER BY QTD DESC
-
--- LUGARES MAIS RECORRENTES DOS CONVENIOS:
-
-SELECT [CidadeConvenio]
-      ,[UfConvenio]
-	   ,COUNT(*) AS QTD FROM (
-SELECT DISTINCT [IdPedido]
-       ,[CidadeConvenio]
-      ,[UfConvenio]
-	   FROM [pardiniteste].[dbo].[DATASET_1] ) PED
-	   GROUP BY [CidadeConvenio]
-      ,[UfConvenio]
-	   ORDER BY QTD DESC
+--SELECT [IdConvenio]
+--	   ,[CodigoConvenio]
+--       ,[NomeConvenio]
+--	   ,COUNT(*) AS QTD FROM (
+--SELECT DISTINCT [IdPedido]
+--       ,[IdConvenio]
+--	   ,[CodigoConvenio]
+--       ,[NomeConvenio]
+--	   FROM [pardiniteste].[dbo].[DATASET_1] ) PED
+--	   GROUP BY [IdConvenio]
+--	   ,[CodigoConvenio]
+--       ,[NomeConvenio]
+--	   ORDER BY QTD DESC
+--
+---- LUGARES MAIS RECORRENTES DOS CONVENIOS:
+--
+--SELECT [CidadeConvenio]
+--      ,[UfConvenio]
+--	   ,COUNT(*) AS QTD FROM (
+--SELECT DISTINCT [IdPedido]
+--       ,[CidadeConvenio]
+--      ,[UfConvenio]
+--	   FROM [pardiniteste].[dbo].[DATASET_1] ) PED
+--	   GROUP BY [CidadeConvenio]
+--      ,[UfConvenio]
+--	   ORDER BY QTD DESC
 
 -- EXAME MAIS RECORRENTE 
 
@@ -98,3 +86,19 @@ SELECT DISTINCT [IdPedido]
 	   GROUP BY [IdExame]
       ,[Exame]
 	   ORDER BY QTD DESC
+
+-- VALOR PRODUCAO POR UNIDADE
+
+SELECT [IdUnidade],
+		SUM(convert(float,[ValorProducao])) AS MEDIA_VALOR_PRODUCAO,
+		AVG(convert(float,[ValorProducao])) AS MEDIA_VALOR_PRODUCAO,
+		MAX(convert(float,[ValorProducao])) AS MAX_VALOR_PRODUCAO,
+		MIN(convert(float,[ValorProducao])) AS MIN_VALOR_PRODUCAO FROM (
+SELECT DISTINCT [DataLaudo], 
+	   [IdPedido],
+	   [IdExame],
+	   [IdUnidade],
+	   [Material],
+       [ValorProducao]
+	   FROM [pardiniteste].[dbo].[DATASET_1] ) PED
+	   GROUP BY [IdUnidade]
