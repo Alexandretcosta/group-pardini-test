@@ -26,7 +26,7 @@ Segue abaixo o modelo de dados da questão 1:
 
 O ETL está desenvolvido no script 'ETL_FATO.ipynb', porém, como que o cliente necessita que o job seja programado para rodar duas vezes ao dia, foram criados dois arquivos com a intenção de utiliza-los no Agendador de Tarefas do Windows. Os arquivos 'file.bat' e 'ETL_FATO.py' serviram para realizar o job duas vezes ao dia pelo Agendador de Tarefas. Além disso, o script 'ETL_FATO.py' utiliza dos scripts dos diretórios 'fato' e 'dimensao' para manter as tabelas atualizadas do modelo de dados.
 
-As querys sugeridas para os Analistas de Dados e Cientista de Dados estão dentro do diretório 'Q1' no arquivo 'query.sql'.
+As querys sugeridas para os Analistas de Dados e Cientista de Dados estão dentro do diretório 'Q1' no arquivo 'QUESTAO1.sql'.
 
 ## Questão 2
 
@@ -34,4 +34,10 @@ Os datasets PRE_ANALITICO e GLOBAL_PRODUÇÃO, são utilizados constantemente no
 
 OBS: O grão das tabelas é a composição entre ID_PEDIDO, ID_UNIDADE, MNEMÔNICO e TIPO_MATERIAL.
 
-### Solução
+### Solução:
+
+A solução foi construída utilizando o SSMS e as querys da solução se encontra no diretório 'Q2' no arquivo 'QUESTAO_2.sql'.
+
+Dentro dessa consulta, temos diferentes análises. Segue algumas delas:
+
+- 
