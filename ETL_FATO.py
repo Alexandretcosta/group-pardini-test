@@ -2,7 +2,12 @@ import pyodbc
 import pandas as pd
 from dotenv import load_dotenv
 import os
-from json import load
+import datetime
+import calendar
+from datetime import date
+import holidays
+import numpy as np
+
 
 load_dotenv("keys.env",override=True)
 
@@ -108,8 +113,8 @@ for cell in nb['cells']:
         source = ''.join(line for line in cell['source'] if not line.startswith('%'))
         exec(source, globals(), locals())
         
-## Tabela Dimensao Pedido
-filename = 'dimensao/Pedido.ipynb'
+## Tabela Dimensao Material
+filename = 'dimensao/Material.ipynb'
 with open(filename) as fp:
     nb = load(fp)
 
@@ -118,16 +123,13 @@ for cell in nb['cells']:
         source = ''.join(line for line in cell['source'] if not line.startswith('%'))
         exec(source, globals(), locals())
 
-#!runipy fato/Fato_Grao.ipynb
 
-#!runipy dimensao/Unidade.ipynb
+## Tabela Dimensao Situacao
+filename = 'dimensao/Situacao.ipynb'
+with open(filename) as fp:
+    nb = load(fp)
 
-#!runipy dimensao/Exame.ipynb
-
-#!runipy dimensao/Convenio.ipynb
-
-#!runipy dimensao/Unidade_Produtiva.ipynb
-
-#!runipy dimensao/Unidade_Negocio.ipynb
-
-#!runipy dimensao/Pedido.ipynb
+for cell in nb['cells']:
+    if cell['cell_type'] == 'code':
+        source = ''.join(line for line in cell['source'] if not line.startswith('%'))
+        exec(source, globals(), locals())
