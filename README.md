@@ -40,4 +40,7 @@ A solução foi construída utilizando o SSMS e as querys da solução se encont
 
 Dentro dessa consulta, temos diferentes análises. Segue algumas delas:
 
-- 
+- Análise região por pedidos;
+- Análise região por unidades;
+- Analíse destino amostra por pedido;
+- Diferença entre data entrega e pedido.
