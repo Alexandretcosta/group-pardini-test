@@ -13,3 +13,5 @@ Sugerir algumas querys para o cientista de dados e analistas de dados que achar 
 Obs1: O menor grão da fato é Pedido + Unidade + Exame + Material e data utilizada é a Data do Laudo.
 
 ### Solução:
+
+![ModeloDados](Modelo_Dados.png)
